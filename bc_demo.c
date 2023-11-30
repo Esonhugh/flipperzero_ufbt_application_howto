@@ -10,15 +10,42 @@
 // FlipperZero libs
 #include <furi.h> // Core API
 #include <furi_hal.h> // hardware abstraction layer (eg. speaker)
+
 #include <gui/gui.h> // GUI (screen/keyboard) API
+#include <gui/canvas.h> // GUI Canvas API
+
 #include <input/input.h> // GUI Input extensions
 
-#include <gui/canvas.h> // GUI Canvas API
 // There is no 'getter' for gui->canvas
 // ...this is dirty/risky, but quicker and (a LOT) easier than getting changes committed to the official API
 // ...essentially, we are exposing private variables [yes, C has private variables - qv. "typedef struct Gui Gui;"]
 // --> applications/gui/
-// #include  <gui/gui_i.h>
+/*
+    #include<gui/gui_i.h>
+
+    struct Gui {
+        ...
+        Canvas* canvas;
+        ...
+    };
+
+    gui->canvas; // <-- this is what we want
+    //  but it is so hacky and need cooperated with firmware codes.
+    //  and it is not recommended to use it.
+    // 
+*/
+// Update: 2023-11-03 Esonhugh
+// Now we can use the API
+// Like
+/*
+    #include<gui/gui.h>
+    #include<gui/canvas.h>
+    
+    ....
+    Canvas* canvas = gui_direct_draw_acquire(gui); // get canvas and add lock to gui
+    ....
+    gui_direct_draw_release(gui); // release gui lock 
+*/
 
 // The FlipperZero Settings->System menu allows you to set the logging level at RUN-time
 // LOG_LEVEL lets you limit it at COMPILE-time
