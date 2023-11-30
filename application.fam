@@ -9,6 +9,11 @@ App(
     requires=[
         "gui",
     ],
+    fap_private_libs=[
+        Lib(
+            name="err"
+        ),  # it will include this err lib under ./lib folder with only name. So you can use it as #include "err.h" or # include "lib/err/err.h"
+    ],
     stack_size=2 * 1024,
     order=20,
     fap_icon="CS.png",

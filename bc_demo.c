@@ -344,8 +344,8 @@ static void animateSet(animID_t id, state_t* const state, Gui* gui) {
     furi_assert(id < ANIM_CNT);
 
     //! use of "gui->canvas" is a hack!
-    Gui* new_gui = gui;
-    Canvas* canvas = gui_direct_draw_acquire(new_gui);
+    // and you need #include <gui/gui_i.h> to get the definition of "struct Gui"
+    Canvas* canvas = gui_direct_draw_acquire(gui); // get canvas and add lock to gui
 
     switch((state->animID = id)) {
     default:
@@ -367,7 +367,7 @@ static void animateSet(animID_t id, state_t* const state, Gui* gui) {
     }
 
     LEAVE;
-    gui_direct_draw_release(new_gui);
+    gui_direct_draw_release(gui); // release gui lock
     return;
 }
 
