@@ -22,6 +22,11 @@ There are some useful command you need
 > 
 > will update your SDK to latest unleashedflip SDK
 
+`ufbt status --help`: this command will output the condition of current ufbt settings
+> you can see what index you use, what SDK is enabled and version.
+> 
+
+
 `ufbt build`: this command help you build the firmware code.
 > you can build the fAP code by this command and same as `ubft`
 
